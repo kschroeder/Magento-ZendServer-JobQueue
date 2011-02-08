@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!-- /** * Magento * * NOTICE OF LICENSE * * This source file is subject 
+	to the Academic Free License (AFL 3.0) * that is bundled with this package 
+	in the file LICENSE_AFL.txt. * It is also available through the world-wide-web 
+	at this URL: * http://opensource.org/licenses/afl-3.0.php * If you did not 
+	receive a copy of the license and are unable to * obtain it through the world-wide-web, 
+	please send an email * to license@magentocommerce.com so we can send you 
+	a copy immediately. * * DISCLAIMER * * Do not edit or add to this file if 
+	you wish to upgrade Magento to newer * versions in the future. If you wish 
+	to customize Magento for your * needs please refer to http://www.magentocommerce.com 
+	for more information. * * @category * @package _home * @copyright Copyright 
+	(c) 2010 Magento Inc. (http://www.magentocommerce.com) * @license http://opensource.org/licenses/afl-3.0.php 
+	Academic Free License (AFL 3.0) */ -->
+<config>
+	<modules>
+		<Zendserver_Jobqueue>
+			<version>0.0.2</version>
+		</Zendserver_Jobqueue>
+	</modules>
+	<adminhtml>
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<jobqueue>
+											<title>Job Queue</title>
+										</jobqueue>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	</adminhtml>
+	<zendserver_jobqueue_attributes>
+		<title>
+			<required>1</required>
+			<label>Title</label>
+		</title>
+	</zendserver_jobqueue_attributes>
+	<global>
+		<events>
+			<controller_front_init_before>
+				<observers>
+					<zendserver_jobqueue_autoloader>
+						<type>singleton</type>
+						<class>zendserver_jobqueue_autoloader</class>
+						<method>injectAutoloader</method>
+					</zendserver_jobqueue_autoloader>
+				</observers>
+			</controller_front_init_before>
+		</events>
+		<helpers>
+			<zendserver_jobqueue>
+				<class>Zendserver_Jobqueue_Helper</class>
+			</zendserver_jobqueue>
+		</helpers>
+	</global>
+	<frontend>
+		<routers>
+			<helloworld>
+				<use>standard</use>
+				<args>
+					<module>Zendserver_Jobqueue</module>
+					<frontName>jobqueue</frontName>
+				</args>
+			</helloworld>
+		</routers>
+	</frontend>
+
+</config>
